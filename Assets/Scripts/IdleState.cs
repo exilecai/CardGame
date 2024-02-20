@@ -9,16 +9,26 @@ public class GameStartState : IState
     
     public GameStartState(BattleManager manager)
     {
+       
         this.manager = manager;
     }
     public void OnEnter()
     {
-        Debug.Log("ÓÎÏ·¿ªÊ¼");
+        //è®¾ç½®åˆå§‹æ‰‹ç‰Œä¸º0
+        manager.playerCurrentCardNum = 0;
+        //è®¾ç½®æ‰‹ç‰Œä¸Šé™ä¸º10
+        manager.playerMaxCardNum = 10;
+        //åŠ è½½ç©å®¶å¡ç»„
+        manager.playerCardDeck = CardManager.Instance.LoadDeck(manager.playerData.playerDeck);
+        //å¯¹ç‰Œå †è¿›è¡Œæ´—ç‰Œ
+        manager.ShuffleList(manager.playerCardDeck);
+        
+        Debug.Log("æ¸¸æˆå¼€å§‹");
     }
 
     public void OnExit()
     {
-        Debug.Log("ÍË³ögamestartState");
+        Debug.Log("é€€å‡ºgamestartState");
     }
 
     public void OnUpdate()
@@ -38,22 +48,26 @@ public class PlayerDrawState : IState
     }
     public void OnEnter()
     {
-        Debug.Log("½øÈëPlayerDrawState");
-        manager.drawCardButton.onClick.AddListener(manager.DrawCard);//ÎªDrawCardBtnÌí¼Ó³éÅÆÊÂ¼ş
-        manager.drawCardButton.onClick.AddListener(drawCardButtonOnClick);//ÎªDrawCardBtnÌí¼Ó±ê¼Ç·û×ª»»º¯Êı,µ±°´Å¥±»µã»÷£¬isDrawCardButtonClicked=true
+        
+        Debug.Log("è¿›å…¥PlayerDrawState");
+        //test
+        //manager.DrawCard(2);
+        //test
+        manager.drawCardButton.onClick.AddListener(()=>manager.DrawCard(2));//ä¸ºDrawCardBtnæ·»åŠ æŠ½ç‰Œäº‹ä»¶
+        manager.drawCardButton.onClick.AddListener(drawCardButtonOnClick);//ä¸ºDrawCardBtnæ·»åŠ æ ‡è®°ç¬¦è½¬æ¢å‡½æ•°,å½“æŒ‰é’®è¢«ç‚¹å‡»ï¼ŒisDrawCardButtonClicked=true
         isDrawCardButtonClicked = false;
     }
 
     public void OnExit()
     {
-        Debug.Log("ÍË³öPlayerDrawState");
+        Debug.Log("é€€å‡ºPlayerDrawState");
     }
 
     public void OnUpdate()
     {
         if (isDrawCardButtonClicked == true)
         {
-            manager.drawCardButton.onClick.RemoveAllListeners();//ÒÆ³ıËùÓĞ°ó¶¨ÊÂ¼ş¡¢·ÀÖ¹ÔÚÆäËû×´Ì¬ÏÂ´¥·¢³éÅÆ
+            manager.drawCardButton.onClick.RemoveAllListeners();//ç§»é™¤æ‰€æœ‰ç»‘å®šäº‹ä»¶ã€é˜²æ­¢åœ¨å…¶ä»–çŠ¶æ€ä¸‹è§¦å‘æŠ½ç‰Œ
             manager.TransitionState(GameState.PlayerAction);
         }
     }
@@ -79,7 +93,7 @@ public class PlayerActionState : IState
     }
     public void OnEnter()
     {
-        Debug.Log("½øÈëPlayerActionState");
+        Debug.Log("è¿›å…¥PlayerActionState");
         isPlayerEndTurnButtonClicked = false;
         manager.playerEndTurnButton.onClick.AddListener(EndTurnButtonOnClick);
 
@@ -88,7 +102,7 @@ public class PlayerActionState : IState
 
     public void OnExit()
     {
-        Debug.Log("ÍË³öPlayerActionState");
+        Debug.Log("é€€å‡ºPlayerActionState");
     }
 
     public void OnUpdate()

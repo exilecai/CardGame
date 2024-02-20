@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18057c3192a379e4faeda8ac8d8d959e, type: 3}
   m_Name: CardOne
   m_EditorClassIdentifier: 
+  id: 1
   cardPicture: {fileID: 21300000, guid: 29cd3ab3594029c419ae7bb411b37461, type: 3}
   cardName: attack
   cardAttack: 3

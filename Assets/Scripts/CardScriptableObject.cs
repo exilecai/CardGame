@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//´æ´¢¿¨ÅÆĞÅÏ¢
+//å­˜å‚¨å¡ç‰Œä¿¡æ¯
 [CreateAssetMenu(fileName ="NewCard",menuName ="Card/NewCard")]
 public class CardScriptableObject : ScriptableObject
 {
-    
+    public int id;
     public Sprite cardPicture;
     public string cardName;
     public int cardAttack;

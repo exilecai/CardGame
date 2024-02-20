@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18057c3192a379e4faeda8ac8d8d959e, type: 3}
   m_Name: CardTwo
   m_EditorClassIdentifier: 
+  id: 2
   cardPicture: {fileID: 21300000, guid: 47592e6c80852984cb4e54cf77896af3, type: 3}
   cardName: superPig
   cardAttack: 10
