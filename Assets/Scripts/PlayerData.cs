@@ -10,7 +10,8 @@ public class PlayerData :MonoBehaviour
     {
         //test部分
         playerDeck.Add(1, 4);
-        playerDeck.Add(2, 2);
+        playerDeck.Add(2, 7);
+
     }
 
    

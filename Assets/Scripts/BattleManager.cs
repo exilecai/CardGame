@@ -95,40 +95,46 @@ public class BattleManager : MonoBehaviour
     }
 
 
+    //抽牌函数
+
     public void DrawCard(int drawHowManyCard)
+    {
+        StartCoroutine(DrawCardCoroutine(drawHowManyCard));
+    }
+
+    private IEnumerator DrawCardCoroutine(int drawHowManyCard)
     {
         for (int i = 0; i < drawHowManyCard; i++)
         {
-            if (playerCurrentCardNum <= playerMaxCardNum)//没有超过手牌上限
+            if (playerCurrentCardNum < playerMaxCardNum)//没有超过手牌上限
             {
-                if (playerCardDeck.Count > 0) //当卡组中还有牌
+                if (playerCardDeck.Count > 0)//当卡组中还有牌
                 {
                     GameObject card = Instantiate(playerCardDeck[0], new Vector3(-1161, -243, 0), Quaternion.identity, cardCanvus);//复制卡组第一张牌
                     card.GetComponent<RectTransform>().anchoredPosition = new Vector2(-1090, 250);
-                    
-                    playerCardDeck.RemoveAt(0);//从牌堆中删去第一张
+
+                    playerCardDeck.RemoveAt(0);// 从牌堆中删去第一张
                     playerCardInHand.Add(card);//加入手牌组
                     playerCurrentCardNum++;//手牌计数+1
-                    
-
-                    card.transform.DOMove(new Vector3(106, 544, 0), 2f).WaitForCompletion();
                     Debug.Log("抽一张牌");
+
+                    Sequence drawAnimation = DOTween.Sequence();
+                    // 使用 yield return 等待动画完成
+                    yield return drawAnimation.Append(card.transform.DOMove(new Vector3(106, 544, 0), 1f)).WaitForCompletion();
+
+                    
                 }
                 else
                 {
                     Debug.Log("没有牌了");
                 }
-
-
             }
-            else//超过手牌上限了
+            else
             {
                 Debug.Log("抽到手牌上限了");
                 break;
             }
         }
-
-
     }
 
     //洗牌算法
