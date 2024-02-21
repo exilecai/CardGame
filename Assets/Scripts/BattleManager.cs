@@ -111,7 +111,7 @@ public class BattleManager : MonoBehaviour
                 if (playerCardDeck.Count > 0)//当卡组中还有牌
                 {
                     GameObject card = Instantiate(playerCardDeck[0], new Vector3(-1161, -243, 0), Quaternion.identity, cardCanvus);//复制卡组第一张牌
-                    card.GetComponent<RectTransform>().anchoredPosition = new Vector2(-1090, 250);
+                    card.GetComponent<RectTransform>().anchoredPosition = new Vector2(-1090, 250);//改变相对canvus中心位置
 
                     playerCardDeck.RemoveAt(0);// 从牌堆中删去第一张
                     playerCardInHand.Add(card);//加入手牌组
@@ -120,9 +120,13 @@ public class BattleManager : MonoBehaviour
 
                     Sequence drawAnimation = DOTween.Sequence();
                     // 使用 yield return 等待动画完成
-                    yield return drawAnimation.Append(card.transform.DOMove(new Vector3(106, 544, 0), 1f)).WaitForCompletion();
+                    yield return drawAnimation
+                        .Append(card.transform.DOMove(new Vector3(106, 544, 0), 1f))
+                        .Append(card.transform.DOMove(new Vector3(1080, 250, 0), 2f))
+                        .WaitForCompletion();
 
-                    
+                    OrganizeCardInHand();
+
                 }
                 else
                 {
@@ -149,8 +153,21 @@ public class BattleManager : MonoBehaviour
         }
     }
 
-    public void Test()
+    public void OrganizeCardInHand()
     {
+        
+        float cardSpacing = Screen.width / 20.0f;     
+        float initialPositionX = 740+ cardSpacing / 2.0f;
 
+        
+        for (int i = 0; i < playerCardInHand.Count; i++)
+        {
+            // 计算卡牌的目标位置。
+            float targetPositionX = initialPositionX + i * cardSpacing;
+            Vector3 targetPosition = new Vector3(targetPositionX, 250.0f, 0.0f);
+
+            // 使用 DOTween 将卡牌移动到目标位置。
+            playerCardInHand[i].transform.DOMove(targetPosition, 0.5f);
+        }
     }
 }

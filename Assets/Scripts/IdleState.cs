@@ -24,6 +24,8 @@ public class GameStartState : IState
         manager.ShuffleList(manager.playerCardDeck);
         
         Debug.Log("游戏开始");
+
+        
     }
 
     public void OnExit()
@@ -50,8 +52,8 @@ public class PlayerDrawState : IState
     {
         
         Debug.Log("进入PlayerDrawState");
-        manager.drawCardButton.onClick.AddListener(()=>manager.DrawCard(11));//为DrawCardBtn添加抽牌事件
-        manager.drawCardButton.onClick.AddListener(drawCardButtonOnClick);//为DrawCardBtn添加标记符转换函数,当按钮被点击，isDrawCardButtonClicked=true
+        manager.drawCardButton.onClick.AddListener(()=>manager.DrawCard(2));//为DrawCardBtn添加抽牌事件
+        //manager.drawCardButton.onClick.AddListener(drawCardButtonOnClick);//为DrawCardBtn添加标记符转换函数,当按钮被点击，isDrawCardButtonClicked=true
         isDrawCardButtonClicked = false;
     }
 
